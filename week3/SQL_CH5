@@ -84,3 +84,19 @@ ex. SELECT * FROM (SELECT * FROM sample54) sq;
 ex. INSERT INTO sample541 VALUES ((SELECT COUNT(*) FROM sample51), (SELECT COUNT(*) FROM sample54));
 ex. INSERT INTO sample541 SELECT 1, 2;
  - insert select명령: select 명령의 결과를 insert into로 지정한 테이블에 전부 추가.
+
+
+
+## 상관 서브 쿼리
+
+### EXISTS
+ex. UPDATE sample551 SET a = '있음' WHERE EXISTS (SELECT * FROM sample552 WEHRE no2 = no);
+ - EXISTS는 데이터가 존재하는지 아닌지 판별: 있는 경우 '참' 반환
+
+### NOT EXISTS
+ex. UPDATE sample551 SET a = '없음' WHERE NOT EXISTS (SELECT * FROM sample552 WHERE no2 = no);
+ - NOT EXISTS: 없는 경우 '참' 반환
+
+### IN
+ex. SELECT * FROM sample551 WHERE no IN (3, 5);
+ - WEHRE no = 3 OR no = 5 를 간단히 표현할 수 있다.
