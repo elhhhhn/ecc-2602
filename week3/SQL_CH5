@@ -73,4 +73,14 @@ ex. SELECT name, COUNT(name) FROM sample GROUP BY name ORDER BY SUM(quantity) DE
 ex. DELETE FROM sample WEHRE a = (SELECT MIN(a) FROM sample54);
  - where구에 서브 쿼리 -> "최솟값을 가진 거 찾기 + 삭제"를 한 번에
 
-ex. 
+ex. SELECT (SELECT COUNT(*) FROM sample51) AS sq1, (SELECT COUNT(*) FROM sample54) AS sq2;
+ - SELECT에서 사용 시 스칼라 서브 쿼리를 사용
+ - 각 테이블의 행 개수를 각 서브 쿼리로 구성 
+ - 상부의 명령에 FROM 구가 없고, 생략 가능
+
+ex. SELECT * FROM (SELECT * FROM sample54) sq;
+ - select 안에 select 구조: 중첩 구조, 네스티드 구조, 내포 구조
+
+ex. INSERT INTO sample541 VALUES ((SELECT COUNT(*) FROM sample51), (SELECT COUNT(*) FROM sample54));
+ex. INSERT INTO sample541 SELECT 1, 2;
+ - insert select명령: select 명령의 결과를 insert into로 지정한 테이블에 전부 추가.
