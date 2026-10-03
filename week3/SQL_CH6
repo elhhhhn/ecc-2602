@@ -30,3 +30,44 @@ ex. `ALTER TABLE sample62 CHANGE newcol c VARCHAR(20);`
 ex. ALTER TABLE sample62 DROP c;
  - 열 삭제
 
+
+## 제약
+ex. ALTER TABLE smaple631 MODIFY c VARCHAR(30) NOT NULL;
+ - 열 제약 추가 (modify) & 이걸로 삭제도 가능
+
+ex. ALTER TABLE sample631 ADD CONSTRAINT pkey_sample631 PRIMARY KEY(a);
+ - 테이블 제약 추가 (add)
+
+ex. ALTER TABLE sample631 DROP PRIMARY KEY;
+ - 테이블 제약 삭제
+
+
+### 기본키 
+insert into sample634 values (2, '둘째줄');
+Query OK, 1 row affected (0.002 sec)
+mysql> insert into sample634 values(2, '넷째줄');
+ERROR 1062 (23000): Duplicate entry '2' for key 'sample634.PRIMARY'
+ - 기본키 중복되면 에러 발생
+
+
+## 인덱스
+ex. CREATE INDEX isample ON sample(no);
+ - 인덱스 생성
+
+ex. DROP INDEX isample65 ON sample;
+ - 인덱스 삭제
+
+
+## 뷰
+ex. SELECT * FROM (SELECT * FROM sample) sq;
+ex. SELECT * FROM sample_view;
+ - 위 예시를 아래와 같이 뷰로 바꿀 수 있다
+
+ex. CREATE VIEW sampleview AS SELECT * FROM sample;
+ - 뷰 생성
+
+ex. CREATE VIEW sampleview(n, v, v2) AS SELECT no, a, a*2 FROM sample;
+ - 뷰에 열 지정
+
+ex. DROP VIEW 뷰명;
+ - 뷰 삭제
