@@ -1,1 +1,32 @@
+#SQL 첫걸음 6장: 데이터베이스 객체 작성과 삭제
+
+## 테이블 작성, 삭제, 변경
+
+### 작성
+ex. CREATE TABLE 테이블명 (
+  열 정의1,
+  열 정의2,
+  ...
+  )
+
+ex. no INTEGER NOT NULL
+ex. a VARCHAR(30)
+ex. b DATE
+ - 열 정의 예시
+
+### 삭제
+ex. DROP TABLE 테이블명
+
+### 변경
+ex. ALTER TABLE sample62 ADD newcol INTEGER;
+ - newcol이라는 새로운 정수 자료형 열.
+
+ex. ALTER TABLE sample62 MODIFY newcol VARCHAR(20);
+ - 열 속성 변경
+
+ex. `ALTER TABLE sample62 CHANGE newcol c VARCHAR(20);`
+ - 열 이름 변경(newcol -> c)
+
+ex. ALTER TABLE sample62 DROP c;
+ - 열 삭제
 
