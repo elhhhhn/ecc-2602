@@ -1,1 +1,120 @@
+# 6장.
 
+## 홈 화면
+###controller
+package hello.hello_spring.controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeController {
+
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
+}
+
+### html
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <div>
+        <h1>Hello Spring</h1>
+        <p>회원 기능</p>
+        <p>
+            <a href="/members/new">회원 가입</a>
+            <a href="/members">회원 목록</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+## 회원 가입
+### memberController
+    @GetMapping(value = "/members/new")
+    public String createForm() {
+        return "members/createMemberForm";
+    }
+
+    @PostMapping(value = "/members/new")
+    public String create(MemberForm form) {
+        Member member = new Member();
+        member.setName(form.getName());
+
+        memberService.join(member);
+        return "redirect:/";
+    }
+
+### MemberForm
+package hello.hello_spring.controller;
+
+public class MemberForm {
+    private String name;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+### createMemberForm.html
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <form action="/members/new" method="post">
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" placeholder="이름을 입력하세
+요">
+        </div>
+        <button type="submit">등록</button>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
+
+
+
+
+##멤버 조회
+### MemberController
+    @GetMapping(value = "/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
+    }
+}
+
+
+### memberList.html
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> 
+</body>
+</html>
